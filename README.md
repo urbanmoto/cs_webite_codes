@@ -1,2 +1,1 @@
-# cs_webite_codes
-# cs_webite_codes
+This repository contains a group of functions used to create the data and upload files for CS.co.uk (not real URL). The website is constructed on the Shopify platform with the 'select2' Javascript functionality embedded. This allows the store to utilise the 'Tag' field on the platform to provided additional search-ability.
