@@ -29,6 +29,7 @@ def jt_web_scraper(x):
 
         model[i] = content.h2.get_text()
         model[i] = model[i].replace('—','-')
+        model[i] = model[i].replace(', ',',')
         model[i] = str(model[i]).strip()
         model_en[i] = model[i].encode('utf-8')
 
