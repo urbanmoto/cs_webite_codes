@@ -117,18 +117,24 @@ def jt_web_scraper(x):
                 chain_type[i] = paragraph_content[10].get_text()
                 chain_type[i] = chain_type[i].replace('Pitch: ','')
 
-                if len(chain_type[i]) <= 4:
+                chain_length[i] = paragraph_content[11].get_text()
+                chain_length[i] = chain_length[i].replace('Length: ','')
 
-                    chain_length[i] = paragraph_content[11].get_text()
-                    chain_length[i] = chain_length[i].replace('Length: ','')
+            if len(chain_type[i]) != 3:
 
-                else:
+                chain_type[i] = paragraph_content[11].get_text()
+                chain_type[i] = chain_type[i].replace('Pitch: ','')
 
-                    chain_type[i] = paragraph_content[12].get_text()
-                    chain_type[i] = chain_type[i].replace('Pitch: ','')
+                chain_length[i] = paragraph_content[12].get_text()
+                chain_length[i] = chain_length[i].replace('Length: ','')
 
-                    chain_length[i] = paragraph_content[13].get_text()
-                    chain_length[i] = chain_length[i].replace('Length: ','')
+            if len(chain_type[i]) != 3:
+
+                chain_type[i] = paragraph_content[12].get_text()
+                chain_type[i] = chain_type[i].replace('Pitch: ','')
+
+                chain_length[i] = paragraph_content[13].get_text()
+                chain_length[i] = chain_length[i].replace('Length: ','')
                     
 
         time.sleep(0.1)
