@@ -30,6 +30,7 @@ def jt_web_scraper(x):
         model[i] = content.h2.get_text()
         model[i] = model[i].replace('—','-')
         model[i] = model[i].replace(', ',',')
+        model[i] = model[i].replace("'","")
         model[i] = str(model[i]).strip()
         model_en[i] = model[i].encode('utf-8')
 
@@ -84,7 +85,7 @@ def jt_web_scraper(x):
 
                 chain_length[i] = paragraph_content[8].get_text()
                 chain_length[i] = chain_length[i].replace('Length: ','')
-                
+
         else:
 
             front_sprocket[i] = paragraph_content[0].get_text()
@@ -136,7 +137,7 @@ def jt_web_scraper(x):
 
                 chain_length[i] = paragraph_content[13].get_text()
                 chain_length[i] = chain_length[i].replace('Length: ','')
-                    
+
 
         time.sleep(0.1)
 
