@@ -22,6 +22,7 @@ def cs_data_maker(csv_file):
     rear_sprocket_teeth = [None] * len(datalist)
     chain_type = [None] * len(datalist)
     chain_length = [None] * len(datalist)
+    HTML_table_row = [None] * len(datalist)
 
     JTF = [None] * len(datalist)       #new variables
     JTR = [None] * len(datalist)
@@ -38,7 +39,8 @@ def cs_data_maker(csv_file):
         rear_sprocket[i] = datalist[i][7]
         rear_sprocket_teeth[i] = datalist[i][8]
         chain_type[i] = datalist[i][9]
-        chain_length[i] = datalist[i][10][:-2]
+        chain_length[i] = datalist[i][10]
+        HTML_table_row[i] = datalist[i][11][:-2]
 
         if front_sprocket[i] != 'TBA':
             JTF[i] = str(front_sprocket[i]) + '.' + str(front_sprocket_teeth[i])
@@ -76,18 +78,37 @@ def cs_data_maker(csv_file):
         index[i] = np.where(JTF_np == str(JTF_np_list[i]))
 
     array = [None] * len(index)             #open variables
+    HTML_array = [None] * len(index)
     JTF_tags_list = [None] * len(index)
+    JTF_HTML_table = [None] * len(index)
 
     for i in range(0,len(index)):           #put model tags into array
         array[i] = [None] * len(index[i][0])
+        HTML_array[i] = [None] * len(index[i][0])
         for j in range(0,len(index[i][0])):
             array[i][j] = tags[index[i][0][j]]
+            HTML_array[i][j] = HTML_table_row[index[i][0][j]]
+
 
     for i in range(0,len(array)):           #sort model tags
         array[i].sort()
+        HTML_array[i].sort()
+
+    for i in range (0,len(array)):
+        np_array = np.ascontiguousarray(array[i], dtype=str)
+        np_array = np.unique(np_array)
+        array[i] = np_array
+        np_array = None
+
+    for i in range (0,len(HTML_array)):
+        np_HTML_array = np.ascontiguousarray(HTML_array[i], dtype=str)
+        np_HTML_array = np.unique(np_HTML_array)
+        HTML_array[i] = np_HTML_array
+        np_HTML_array = None
 
     for i in range(0,len(array)):           #make tag list for shopify
         JTF_tags_list[i] = ','.join(array[i])
+        JTF_HTML_table[i] = ''.join(HTML_array[i])
 
     #REAR SPROCKERS
 
@@ -115,28 +136,46 @@ def cs_data_maker(csv_file):
         index[i] = np.where(JTR_np == str(JTR_np_list[i]))
 
     array = [None] * len(index)             #open variables
+    HTML_array = [None] * len(index)
     JTR_tags_list = [None] * len(index)
+    JTR_HTML_table = [None] * len(index)
 
     for i in range(0,len(index)):           #put model tags into array
         array[i] = [None] * len(index[i][0])
+        HTML_array[i] = [None] * len(index[i][0])
         for j in range(0,len(index[i][0])):
             array[i][j] = tags[index[i][0][j]]
+            HTML_array[i][j] = HTML_table_row[index[i][0][j]]
 
     for i in range(0,len(array)):           #sort model tags
         array[i].sort()
+        HTML_array[i].sort()
+
+    for i in range (0,len(array)):
+        np_array = np.ascontiguousarray(array[i], dtype=str)
+        np_array = np.unique(np_array)
+        array[i] = np_array
+        np_array = None
+
+    for i in range (0,len(HTML_array)):
+        np_HTML_array = np.ascontiguousarray(HTML_array[i], dtype=str)
+        np_HTML_array = np.unique(np_HTML_array)
+        HTML_array[i] = np_HTML_array
+        np_HTML_array = None
 
     for i in range(0,len(array)):           #make tag list for shopify
         JTR_tags_list[i] = ','.join(array[i])
+        JTR_HTML_table[i] = ''.join(HTML_array[i])
 
 
-    front_rows = zip(JTF_list,JTF_tags_list)
+    front_rows = zip(JTF_list,JTF_tags_list,JTF_HTML_table)
 
     with open('cs_front_sprocket_tags.csv', 'w') as file:
         writer = csv.writer(file)
         for row in front_rows:
             writer.writerow(row)
 
-    rear_rows = zip(JTR_list,JTR_tags_list)
+    rear_rows = zip(JTR_list,JTR_tags_list,JTR_HTML_table)
 
     with open('cs_rear_sprocket_tags.csv', 'w') as file:
         writer = csv.writer(file)
