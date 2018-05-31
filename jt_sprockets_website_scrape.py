@@ -42,104 +42,109 @@ def jt_web_scraper(x):
         paragraph_content = content.find_all('p')
         titles = content.find_all('h3')
 
-        if len(titles) == 3:
+        try:
+            if len(titles) == 3:
 
-            front_sprocket[i] = paragraph_content[0].get_text()
-            front_sprocket[i] = front_sprocket[i].replace('Part Number: ','')
+                front_sprocket[i] = paragraph_content[0].get_text()
+                front_sprocket[i] = front_sprocket[i].replace('Part Number: ','')
 
-            front_sprocket_teeth[i] = paragraph_content[1].get_text()
-            front_sprocket_teeth[i] = front_sprocket_teeth[i].replace('Teeth: ','')
+                front_sprocket_teeth[i] = paragraph_content[1].get_text()
+                front_sprocket_teeth[i] = front_sprocket_teeth[i].replace('Teeth: ','')
 
-            rear_sprocket[i] = paragraph_content[3].get_text()
-            rear_sprocket[i] = rear_sprocket[i].replace('Part Number: ','')
+                rear_sprocket[i] = paragraph_content[3].get_text()
+                rear_sprocket[i] = rear_sprocket[i].replace('Part Number: ','')
 
-            if len(rear_sprocket[i]) <= 10:
+                if len(rear_sprocket[i]) <= 10:
 
-                rear_sprocket_teeth[i] = paragraph_content[4].get_text()
-                rear_sprocket_teeth[i] = rear_sprocket_teeth[i].replace('Teeth: ','')
+                    rear_sprocket_teeth[i] = paragraph_content[4].get_text()
+                    rear_sprocket_teeth[i] = rear_sprocket_teeth[i].replace('Teeth: ','')
+    
+                    chain_type[i] = paragraph_content[6].get_text()
+                    chain_type[i] = chain_type[i].replace('Pitch: ','')
 
-                chain_type[i] = paragraph_content[6].get_text()
-                chain_type[i] = chain_type[i].replace('Pitch: ','')
+                    chain_length[i] = paragraph_content[7].get_text()
+                    chain_length[i] = chain_length[i].replace('Length: ','')
 
-                chain_length[i] = paragraph_content[7].get_text()
-                chain_length[i] = chain_length[i].replace('Length: ','')
+                else:
+
+                    rear_sprocket[i] = paragraph_content[4].get_text()
+                    rear_sprocket[i] = rear_sprocket[i].replace('Part Number: ','')
+
+                    rear_sprocket_teeth[i] = paragraph_content[5].get_text()
+                    rear_sprocket_teeth[i] = rear_sprocket_teeth[i].replace('Teeth: ','')
+
+                    chain_type[i] = paragraph_content[7].get_text()
+                    chain_type[i] = chain_type[i].replace('Pitch: ','')
+
+                    chain_length[i] = paragraph_content[8].get_text()
+                    chain_length[i] = chain_length[i].replace('Length: ','')
+
+                if len(chain_type[i]) > 3:
+
+                    chain_type[i] = paragraph_content[7].get_text()
+                    chain_type[i] = chain_type[i].replace('Pitch: ','')
+
+                    chain_length[i] = paragraph_content[8].get_text()
+                    chain_length[i] = chain_length[i].replace('Length: ','')
 
             else:
 
-                rear_sprocket[i] = paragraph_content[4].get_text()
+                front_sprocket[i] = paragraph_content[0].get_text()
+                front_sprocket[i] = front_sprocket[i].replace('Part Number: ','')
+
+                front_sprocket_teeth[i] = paragraph_content[1].get_text()
+                front_sprocket_teeth[i] = front_sprocket_teeth[i].replace('Teeth: ','')
+
+                rear_sprocket[i] = paragraph_content[3].get_text()
                 rear_sprocket[i] = rear_sprocket[i].replace('Part Number: ','')
 
-                rear_sprocket_teeth[i] = paragraph_content[5].get_text()
-                rear_sprocket_teeth[i] = rear_sprocket_teeth[i].replace('Teeth: ','')
+                if len(rear_sprocket[i]) <= 10:
+    
+                    rear_sprocket_teeth[i] = paragraph_content[4].get_text()
+                    rear_sprocket_teeth[i] = rear_sprocket_teeth[i].replace('Teeth: ','')
 
-                chain_type[i] = paragraph_content[7].get_text()
-                chain_type[i] = chain_type[i].replace('Pitch: ','')
+                    chain_type[i] = paragraph_content[9].get_text()
+                    chain_type[i] = chain_type[i].replace('Pitch: ','')
 
-                chain_length[i] = paragraph_content[8].get_text()
-                chain_length[i] = chain_length[i].replace('Length: ','')
+                    chain_length[i] = paragraph_content[10].get_text()
+                    chain_length[i] = chain_length[i].replace('Length: ','')
 
-            if len(chain_type[i]) > 3:
+                else:
 
-                chain_type[i] = paragraph_content[7].get_text()
-                chain_type[i] = chain_type[i].replace('Pitch: ','')
+                    rear_sprocket[i] = paragraph_content[4].get_text()
+                    rear_sprocket[i] = rear_sprocket[i].replace('Part Number: ','')
 
-                chain_length[i] = paragraph_content[8].get_text()
-                chain_length[i] = chain_length[i].replace('Length: ','')
+                    rear_sprocket_teeth[i] = paragraph_content[5].get_text()
+                    rear_sprocket_teeth[i] = rear_sprocket_teeth[i].replace('Teeth: ','')
 
-        else:
+                    chain_type[i] = paragraph_content[10].get_text()
+                    chain_type[i] = chain_type[i].replace('Pitch: ','')
 
-            front_sprocket[i] = paragraph_content[0].get_text()
-            front_sprocket[i] = front_sprocket[i].replace('Part Number: ','')
+                    chain_length[i] = paragraph_content[11].get_text()
+                    chain_length[i] = chain_length[i].replace('Length: ','')
 
-            front_sprocket_teeth[i] = paragraph_content[1].get_text()
-            front_sprocket_teeth[i] = front_sprocket_teeth[i].replace('Teeth: ','')
+                if len(chain_type[i]) != 3:
 
-            rear_sprocket[i] = paragraph_content[3].get_text()
-            rear_sprocket[i] = rear_sprocket[i].replace('Part Number: ','')
+                    chain_type[i] = paragraph_content[11].get_text()
+                    chain_type[i] = chain_type[i].replace('Pitch: ','')
 
-            if len(rear_sprocket[i]) <= 10:
+                    chain_length[i] = paragraph_content[12].get_text()
+                    chain_length[i] = chain_length[i].replace('Length: ','')
 
-                rear_sprocket_teeth[i] = paragraph_content[4].get_text()
-                rear_sprocket_teeth[i] = rear_sprocket_teeth[i].replace('Teeth: ','')
+                if len(chain_type[i]) != 3:
 
-                chain_type[i] = paragraph_content[9].get_text()
-                chain_type[i] = chain_type[i].replace('Pitch: ','')
+                    chain_type[i] = paragraph_content[12].get_text()
+                    chain_type[i] = chain_type[i].replace('Pitch: ','')
 
-                chain_length[i] = paragraph_content[10].get_text()
-                chain_length[i] = chain_length[i].replace('Length: ','')
-
-            else:
-
-                rear_sprocket[i] = paragraph_content[4].get_text()
-                rear_sprocket[i] = rear_sprocket[i].replace('Part Number: ','')
-
-                rear_sprocket_teeth[i] = paragraph_content[5].get_text()
-                rear_sprocket_teeth[i] = rear_sprocket_teeth[i].replace('Teeth: ','')
-
-                chain_type[i] = paragraph_content[10].get_text()
-                chain_type[i] = chain_type[i].replace('Pitch: ','')
-
-                chain_length[i] = paragraph_content[11].get_text()
-                chain_length[i] = chain_length[i].replace('Length: ','')
-
-            if len(chain_type[i]) != 3:
-
-                chain_type[i] = paragraph_content[11].get_text()
-                chain_type[i] = chain_type[i].replace('Pitch: ','')
-
-                chain_length[i] = paragraph_content[12].get_text()
-                chain_length[i] = chain_length[i].replace('Length: ','')
-
-            if len(chain_type[i]) != 3:
-
-                chain_type[i] = paragraph_content[12].get_text()
-                chain_type[i] = chain_type[i].replace('Pitch: ','')
-
-                chain_length[i] = paragraph_content[13].get_text()
-                chain_length[i] = chain_length[i].replace('Length: ','')
+                    chain_length[i] = paragraph_content[13].get_text()
+                    chain_length[i] = chain_length[i].replace('Length: ','')
 
 
-        time.sleep(0.1)
+            time.sleep(0.1)
+
+        except:
+        
+            print, URL
 
     rows = zip(URL_out,model_en,years,front_sprocket,front_sprocket_teeth,\
                rear_sprocket, rear_sprocket_teeth, chain_type , chain_length)
