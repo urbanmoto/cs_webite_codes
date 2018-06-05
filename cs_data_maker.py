@@ -11,6 +11,16 @@ def cs_data_maker(csv_file):
         datalist[i] = str(datalist[i])
         datalist[i] = datalist[i].split("', '")
 
+    csv_file_2='JT_scrap_Model_CC_list.csv'
+    
+    with open(csv_file_2, 'r') as csvfile:
+        datareader2 = csv.reader(csvfile)
+        datalist2 = list(datareader2)
+
+    for i in range(0,len(datalist2)):
+        datalist2[i] = str(datalist2[i])
+        datalist2[i] = datalist2[i].split("', '")
+
     URL = [None] * len(datalist)       #re-open exsisting variables
     man = [None] * len(datalist)
     model = [None] * len(datalist)
@@ -23,6 +33,11 @@ def cs_data_maker(csv_file):
     chain_type = [None] * len(datalist)
     chain_length = [None] * len(datalist)
     HTML_table_row = [None] * len(datalist)
+
+    HTML_table_row_2 = [None] * len(datalist2)   #variables for CC assignment
+    CC = [None] * len(datalist2)
+
+    model_CC = [None] * len(datalist)
 
     JTF = [None] * len(datalist)       #new variables
     JTR = [None] * len(datalist)
@@ -51,6 +66,35 @@ def cs_data_maker(csv_file):
             JTR[i] = str(rear_sprocket[i]) + '.' + str(rear_sprocket_teeth[i])
         else:
             ''
+   
+    for i in range(0,len(datalist2)):
+        HTML_table_row_2[i] = datalist2[i][0][2:]   #re-assign CC variables
+        CC[i] = datalist2[i][1][:-2]
+
+    #Get model CC from CC lookup table provided
+
+    HTML_np = np.ascontiguousarray(HTML_table_row, dtype=str) 
+    join = [None] * len(HTML_table_row)
+    join_at = [None] * len(HTML_table_row)
+
+    for i in range(0,len(HTML_table_row_2)):
+        join[i] = np.where(HTML_np == str(HTML_table_row_2[i]))
+
+    for i in range(1,len(join)):
+        try:
+            join_at[i] = [None] * len(join[i][0])
+            for j in range(0,len(join[i][0])):
+                join_at[i][j] = join[i][0][j]
+        except:
+            pass
+
+    for i in range(0,len(join_at)):
+        try:
+            for j in range(0,len(join_at[i])):
+                model_CC[join_at[i][j]] = CC[(i)] #removed +1 for testing
+        except:
+            pass
+    
 
     #FRONT SPROCKETS
 
@@ -88,7 +132,6 @@ def cs_data_maker(csv_file):
         for j in range(0,len(index[i][0])):
             array[i][j] = tags[index[i][0][j]]
             HTML_array[i][j] = HTML_table_row[index[i][0][j]]
-
 
     for i in range(0,len(array)):           #sort model tags
         array[i].sort()
@@ -167,6 +210,12 @@ def cs_data_maker(csv_file):
         JTR_tags_list[i] = ','.join(array[i])
         JTR_HTML_table[i] = ''.join(HTML_array[i])
 
+    CC_rows = zip(man,model,years,HTML_table_row,tags,model_CC,chain_type,chain_length)
+    
+    with open('models_CC.csv', 'w') as file:
+        writer = csv.writer(file)
+        for row in CC_rows:
+            writer.writerow(row)
 
     front_rows = zip(JTF_list,JTF_tags_list,JTF_HTML_table)
 
