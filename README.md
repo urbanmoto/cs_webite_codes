@@ -5,3 +5,4 @@ These codes are intended to be used together in the following order:
 - jt_web_scrape_cleaner
 - cs_tag_maker
 - cs_data_maker
+- cs_chain_maker
