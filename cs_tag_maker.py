@@ -32,7 +32,7 @@ def cs_tag_maker(csv_file):
     broken_URL = [None] * len(datalist)       #more variables
     broken_model = [None] * len(datalist)
     broken_model_iso_cs = [None] * len(datalist)
-    broken_man = [None] * len(datalist) 
+    broken_man = [None] * len(datalist)
     broken_years = [None] * len(datalist)
     broken_front_sprocket = [None] * len(datalist)
     broken_front_sprocket_teeth = [None] * len(datalist)
@@ -145,6 +145,9 @@ def cs_tag_maker(csv_file):
 
         model_iso_cs[i] = model_iso_cs[i].replace(',',' ')      #shopify tags cannot contain commas
 
+        if years[i] is not None:
+            model_iso_cs[i] = str(model_iso_cs[i]) + '(' + years[i] + ')'     #add years to model names
+
         split_years[i] = years[i].split('-')                    #split years into beginning and end
 
         try:    #take beginning and end years and make range
@@ -177,7 +180,7 @@ def cs_tag_maker(csv_file):
         broken_chain_type[i] = [None] * len(broken_years[i])
         broken_chain_length[i] = [None] * len(broken_years[i])
         broken_HTML_table_row[i] = [None] * len(broken_years[i])
-        
+
         for j in range(0,len(broken_years[i])):                #fill variables with data
             broken_URL[i][j] = URL[i]
             broken_man[i][j] = man[i]
@@ -190,7 +193,7 @@ def cs_tag_maker(csv_file):
             broken_chain_type[i][j] = chain_type[i]
             broken_chain_length[i][j] = chain_length[i]
             broken_HTML_table_row[i][j] = HTML_table_row[i]
-                       
+
         if type(broken_years[i]) != list:        #make str into single item list
             broken_URL[i] = [broken_URL[i]]
             broken_man[i] = [broken_man[i]]
@@ -203,7 +206,7 @@ def cs_tag_maker(csv_file):
             broken_chain_type[i] = [broken_chain_type[i]]
             broken_chain_length[i] = [broken_chain_length[i]]
             broken_HTML_table_row[i] = [broken_HTML_table_row[i]]
-            
+
     years_out = reduce(lambda x,y :x+y ,broken_years)       #reduce 2d arrays to lists
     URL_out = reduce(lambda x,y :x+y ,broken_URL)
     man_out = reduce(lambda x,y :x+y ,broken_man)
@@ -218,7 +221,7 @@ def cs_tag_maker(csv_file):
     HTML_table_row_out = reduce(lambda x,y :x+y ,broken_HTML_table_row)
 
     tags = [None] * len(years_out)
-    
+
     for i in range(0,len(years_out)):
         tags[i] = str(man_out[i]) + '_' + str(model_iso_cs_out[i]) + '_' +str(years_out[i])  #make shopify tags
 
