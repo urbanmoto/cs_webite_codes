@@ -28,6 +28,7 @@ def cs_tag_maker(csv_file):
     split_years = [None] * len(datalist)
     range_years = [None] * len(datalist)
     HTML_table_row = [None] * len(datalist)
+    model_years = [None] * len(datalist)
 
     broken_URL = [None] * len(datalist)       #more variables
     broken_model = [None] * len(datalist)
@@ -145,8 +146,11 @@ def cs_tag_maker(csv_file):
 
         model_iso_cs[i] = model_iso_cs[i].replace(',',' ')      #shopify tags cannot contain commas
 
-        if years[i] is not None:
-            model_iso_cs[i] = str(model_iso_cs[i]) + '(' + years[i] + ')'     #add years to model names
+        if years[i] != '':
+            model_years[i] = years[i].replace('19','').replace('20','')
+            model_iso_cs[i] = str(model_iso_cs[i]) + ' (' + model_years[i] + ')'     #add years to model names
+        else:
+            pass
 
         split_years[i] = years[i].split('-')                    #split years into beginning and end
 
