@@ -166,7 +166,7 @@ def cs_chain_maker(csv_file):
                 chain37[i] = 'CHAIN-DID-' + str(chain_type[i]) + 'VXGB(ZJ)-' + str(chain_length[i])
                 #Update
                 chain49[i] = 'CHAIN-RK-' + str(chain_type[i]) + 'XSOZ1-' + str(chain_length[i])
-                chain50[i] - 'CHAIN-RK-' + str(chain_type[i]) + 'XSOZ1GB-' + str(chain_length[i])
+                chain50[i] = 'CHAIN-RK-' + str(chain_type[i]) + 'XSOZ1GB-' + str(chain_length[i])
 
             if CC[i] <= 1400:
                 chain38[i] = 'JTC' + str(chain_type[i]) + 'Z3' + str(chain_length[i]) + 'RL'
