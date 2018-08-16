@@ -60,6 +60,7 @@ def cs_chain_maker(csv_file):
     chain37 = [None] * len(datalist)
     chain38 = [None] * len(datalist)
     chain39 = [None] * len(datalist)
+    chain40 = [None] * len(datalist)
     chain41 = [None] * len(datalist)
     chain42 = [None] * len(datalist)
     chain43 = [None] * len(datalist)
@@ -125,7 +126,7 @@ def cs_chain_maker(csv_file):
                 chain19[i] = 'JTC' + str(chain_type[i]) + 'HDS2NN' + str(chain_length[i]) + 'SL'
                 #Update
                 chain41[i] = 'CHAIN-DID-' + str(chain_type[i]) + 'NZ(FJ)-' + str(chain_length[i])
-            if CC[i] <= 750:
+            if CC[i] <= 750 and CC[i] > 250:
                 chain20[i] = 'JTC' + str(chain_type[i]) + 'X1R2' + str(chain_length[i]) + 'DL'
                 chain21[i] = 'JTC' + str(chain_type[i]) + 'X1R2NN' + str(chain_length[i]) + 'DL'
                 chain22[i] = 'CHAIN-DID-' + str(chain_type[i]) + 'VX2(ZJ)-' + str(chain_length[i])
@@ -133,10 +134,10 @@ def cs_chain_maker(csv_file):
                 #Update
                 chain44[i] = 'CHAIN-RK-' + str(chain_type[i]) + 'XSO-' + str(chain_length[i])
                 chain45[i] = 'CHAIN-RK-' + str(chain_type[i]) + 'XSOGB-' + str(chain_length[i])
-            if CC[i] <= 1000:
+            if CC[i] <= 1000 and CC[i] > 500:
                 chain24[i] = 'JTC' + str(chain_type[i]) + 'Z3' + str(chain_length[i]) + 'RL'
                 chain25[i] = 'JTC' + str(chain_type[i]) + 'Z3NN' + str(chain_length[i]) + 'RL'
-            if CC[i] <= 1200:
+            if CC[i] <= 1200 and CC[i] > 500:
                 chain26[i] = 'CHAIN-DID-' + str(chain_type[i]) + 'ZVMXGG(ZJ)-' + str(chain_length[i])
 
         if chain_type[i] == '525':
